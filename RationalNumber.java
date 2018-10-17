@@ -8,58 +8,64 @@ public class RationalNumber extends RealNumber
   *@param deno the denominator
   */
   public RationalNumber(int nume, int deno){
-    super(0);//this value is ignored! 
+    super(0);//this value is ignored!
     numerator = nume;
     denominator = deno;
+    if (denominator == 0) {
+      numerator = 0;
+      denominator = 1;
+    }
   }
 
   public double getValue(){
-    return 0;//???
+    return this.getNumerator()/this.getDenominator();
   }
 
-  /**
-  *@return the numerator
-  */
+
   public int getNumerator(){
-    return 0;
+    return numerator;
   }
-  /**
-  *@return the denominator
-  */
+
   public int getDenominator(){
-    return 0;
+    return denominator;
   }
-  /**
-  *@return a new RationalNumber that has the same numerator
-  *and denominator as this RationalNumber but reversed.
-  */
+
   public RationalNumber reciprocal(){
-    return null;
+    return new RationalNumber(this.getDenominator(),this.getNumerator());
   }
-  /**
-  *@return true when the RationalNumbers have the same numerators and denominators, false otherwise.
-  */
+
   public boolean equals(RationalNumber other){
+    if (this.getNumerator() == other.getNumerator() && this.getDenominator() == other.getDenominator()) {
+      return true;
+    }
+    if (this.getNumerator() == 0 && other.getNumerator() == 0) {
+      return true;
+    }
     return false;
   }
 
-
-  /**
-  *@return the value expressed as "3/4" or "8/3"
-  */
   public String toString(){
-    return "0";
+    return "" + getNumerator() + "/" + getDenominator();
   }
 
-
-
-  /**Calculate the GCD of two integers.
-  *@param a the first integers
-  *@param b the second integer
-  *@return the value of the GCD
-  */
-  private static int gcd(int a, int b){
+  public static int gcd(int a, int b){
     /*use euclids method or a better one*/
+    int large = a;
+    int small = b;
+    if (b > large) {
+      large = b;
+      small = a;
+    }
+    boolean x = true;
+    int remainder = 0;
+    while (x) {
+       remainder = large % small;
+       if (remainder == 0) {
+         return small;
+       }
+       large = small;
+       small = remainder;
+    }
     return 0;
   }
 
@@ -105,4 +111,4 @@ public class RationalNumber extends RealNumber
   public RationalNumber subtract(RationalNumber other){
     return null;
   }
-} 
+}

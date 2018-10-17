@@ -1,4 +1,7 @@
 public class Driver{
-  RealNumber a = new RealNumber();
-  RationalNumber b = new RationalNumber();
+  public static void main(String[] args) {
+    RealNumber a = new RealNumber(0);
+    RationalNumber b = new RationalNumber(0,0);
+    System.out.println(RationalNumber.gcd(5,48));
+  }
 }
