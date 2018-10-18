@@ -11,7 +11,7 @@ public class RationalNumber extends RealNumber
     super(0);//this value is ignored!
     numerator = nume;
     denominator = deno;
-    if (denominator == 0) {
+    if (deno == 0) {
       numerator = 0;
       denominator = 1;
     }
@@ -19,7 +19,7 @@ public class RationalNumber extends RealNumber
   }
 
   public double getValue(){
-    return this.getNumerator()/this.getDenominator();
+    return (double)this.getNumerator()/this.getDenominator();
   }
 
 
@@ -46,15 +46,14 @@ public class RationalNumber extends RealNumber
   }
 
   public String toString(){
-    if (getNumerator() == 0 || getDenominator() == 1) {
-	return "" + getNumerator();
+    if (this.getNumerator() == 0 || this.getDenominator() == 1) {
+	    return "" + this.getNumerator();
     }
-    if (getNumerator() < 0 && getDenominator() < 0 || getNumerator() > 0 && getDenominator() > 0) {
-    	return "" + getNumerator() + "/" + getDenominator();
+    if ((this.getNumerator() < 0 && getDenominator() < 0) || (getNumerator() > 0 && getDenominator() > 0)) {
+    	return "" + Math.abs(this.getNumerator()) + "/" + Math.abs(this.getDenominator());
     }
-    return "-" + getNumerator() + "/" + getDenominator();
+    return "-" + Math.abs(this.getNumerator()) + "/" + Math.abs(this.getDenominator());
   }
-
   public static int gcd(int a, int b){
     /*use euclids method or a better one*/
     int large = Math.abs(a);
@@ -65,15 +64,17 @@ public class RationalNumber extends RealNumber
     }
     boolean x = true;
     int remainder = 0;
+    int f = 0;
     while (x) {
        remainder = large % small;
        if (remainder == 0) {
-         return small;
+         x = false;
+         f = small;
        }
        large = small;
        small = remainder;
     }
-    return 0;
+    return f;
   }
 
 
@@ -84,9 +85,14 @@ public class RationalNumber extends RealNumber
   *reduced after construction.
   */
   private void reduce(){
-    int g = gcd(getNumerator(),getDenominator());
-    numerator = getNumerator()/g;
-    denominator = getDenominator()/g;
+    if (getNumerator() != 0) {
+      int g = gcd(getNumerator(),getDenominator());
+      numerator = getNumerator()/g;
+      denominator = getDenominator()/g;
+    }
+    else {
+      denominator = 1;
+    }
   }
 
 
